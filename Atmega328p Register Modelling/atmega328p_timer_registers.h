@@ -1,0 +1,191 @@
+#ifndef atmega328p_timer_registers
+#define atmega328p_timer_registers
+
+//REGISTER ADRESS OF TIMER COUNTER CONTROL REGISTER0 
+#define REG_ADDR_TCCR0		0X44
+#define _REG_TCR0			(*(volatile uint16_t*)REG_ADDR_TCCR0)
+
+//STRUCT OF TIMER COUNTER CONTROL REGISTER0 
+typedef struct{
+	uint8_t wgmA : 2;
+	uint8_t reservedA : 2;
+	uint8_t com0B : 2;
+	uint8_t com0A : 2;	
+	uint8_t clock_select : 3;
+	uint8_t wgmB : 1;
+	uint8_t reservedB : 2;
+	uint8_t foc0b : 1;
+	uint8_t foc0a : 1;
+
+}_TCCR0_T,*_TCCR0_T_PTR;
+
+//TCCRO0 UNION
+typedef union{
+	_TCCR0_T bits;
+	volatile uint16_t value;		
+
+}TCCR0_T,*TCCR0_T_PTR;
+
+#define REG_TCCR0_UNION			(*(TCCR0_T_PTR)REG_ADDR_TCCR0)
+
+//TIMER0 MODES
+#define	TIMER0_MODE_SELECTION	REG_TCCR0_UNION.bits.wgmA
+#define TIMER0_MODE_NORMAL		0
+#define TIMER0_MODE_CTC			2
+
+//TIMER0 CONFIGURATIONS
+#define TIMER0_CLOCK_SELECTION		REG_TCCR0_UNION.bits.clock_select
+#define TIMER0_NO_CLOCK_SOURCE			0
+#define TIMER0_NO_PRESCALE				1
+#define TIMER0_PRESCALE_8				2
+#define TIMER0_PRESCALE_64				3
+#define TIMER0_PRESCALE_256				4
+#define TIMER0_PRESCALE_1024			5	
+#define TIMER0_EXT_CLOCK_FALLING		6
+#define TIMER0_EXT_CLOCK_RISING			7
+
+//REGISTER ADRESS OF TCNT0
+#define REG_ADDR_TCTNT0		0x46
+#define _REG_TCNT0			(*(volatile uint8_t*)REG_ADDR_TCTNT0)
+
+//TCNT UNION
+typedef struct{
+	uint8_t value : 8;
+}TCNT0_T,*TCNT0_T_PTR;
+
+#define REG_TIMER0_COUNTER			(*(TCCR0_T_PTR)REG_ADDR_TCTNT0)
+#define TIMER0_COUNTER				REG_TIMER0_COUNTER.value
+
+
+//REGISTER ADRESS OF TIMER INTERRUPT FLAG REGISTER0 
+#define REG_ADDR_TIFR0		0x35
+#define _REG_TIFR0			(*(volatile uint8_t*)REG_ADDR_TIFR0)
+
+//STRUCT OF TIMER INTERRUPT FLAG REGISTER0 
+typedef struct{
+	uint8_t tov : 1;
+	uint8_t ocfa : 1;
+	uint8_t ocfb : 1;
+	uint8_t reserved : 5;
+}TIFR0_T,*TIFR0_PTR_T;
+
+
+//TIFRO0 CONFIGURATIONS
+#define REG_TIFR0					(*(TIFR0_PTR_T)REG_ADDR_TIFR0)
+#define TIMER_FLAG_OVERFLOW			REG_TIFR0.tov4
+#define TIMER0_FLAG_COMPARE_A		REG_TIFR0.ocfa
+#define TIMER0_FLAG_COMPARE_B		REG_TIFR0.ocfb
+#define TIMER0_FLAG_SET				0
+#define TIMER0_FLAG_RESET			1
+
+//REGISTER ADRESS OF TIMER COUNTER INTERRUPT MASK REGISTER0
+#define REG_ADDR_TCIMSK				0X6E
+#define _REG_TCIMSK					(*(volatile uint8_t*)REG_ADDR_TCIMSK)
+
+//STRUCT OF TIMER COUNTER INTERRUPT MASK REGISTER0
+typedef struct{
+	uint8_t toie0 : 1;
+	uint8_t ociea0A : 1;
+	uint8_t ocieb0B : 1;
+	uint8_t reserved : 5;	
+}_TCIMSK_T,*_TCIMSK_T_PTR;
+
+//UNION OF TIMER COUNTER INTERRUPT MASK REGISTER0
+typedef union{
+	_TCIMSK_T bits;
+	volatile uint8_t value; 
+}TCIMSK_T,*TCIMSK_T_PTR;
+
+//TIMSK0 CONFIGURATIONS
+#define REG_TCIMSK						(*(TCIMSK_T_PTR)REG_ADDR_TCIMSK)
+#define TIMER0_INTERRUPT_OVERFLOW		REG_TCIMSK.bits.toie0
+#define TIMER0_INTERRUPT_COMPARE_A		REG_TCIMSK.bits.ociea0A
+#define TIMER0_INTERRUPT_COMPARE_B		REG_TCIMSK.bits.ocieb0B
+#define TIMER0_INTERRUPT_ENABLE			1
+#define TIMER0_INTERRUPT_DISABLE		0
+
+
+
+
+//REGISTER ADRESS OF TIMER COUNTER CONTROL REGISTER1
+#define REG_ADDR_TCCR1					0x80
+#define _REG_TCCR1						(*(volatile uint8_t)REG_ADDR_TCCR1)
+
+//STRUCT OF TIMER COUNTER CONTROL REGISTER1
+typedef struct{
+	uint8_t wgmA : 2;
+	uint8_t reservedA : 2;
+	uint8_t com1b : 2;
+	uint8_t com1a : 2;
+	uint8_t clock_select : 3;
+	uint8_t wgmB : 2;
+	uint8_t reservedB : 1;
+	uint8_t ices1 : 1;
+	uint8_t icnc1 : 1;	
+}_TCCR1_T,*_TCCR1_T_PTR;
+
+//TCCRO1 UNION
+typedef union{
+	_TCCR1_T bits;
+	 uint16_t value;	
+}TCCR1_T,*TCCR1_T_PTR;
+
+//TIMER1 MODES
+#define REG_TCCR1_UNION					(*(volatile TCCR1_T_PTR)REG_ADDR_TCCR1)
+#define TIMER1_MODE						REG_TCCR1_UNION.value 
+#define TIMER1_MODE_NORMAL				REG_TCCR1_UNION.value | 0x0000
+#define TIMER1_MODE_PWM_PC_8BIT			REG_TCCR1_UNION.value | 0x0001
+#define TIMER1_MODE_PWM_PC_9BIT			REG_TCCR1_UNION.value | 0x0002
+#define TIMER1_MODE_PWM_PC_10BIT		REG_TCCR1_UNION.value | 0x0003
+#define TIMER1_MODE_CTC_OCR1A			REG_TCCR1_UNION.value | 0x0800
+#define TIMER1_MODE_FAST_PWM_8BIT		REG_TCCR1_UNION.value | 0x0801
+#define TIMER1_MODE_FAST_PWM_9BIT		REG_TCCR1_UNION.value | 0x0802
+#define TIMER1_MODE_FAST_PWM_10BIT		REG_TCCR1_UNION.value | 0x1000
+#define TIMER1_MODE_PWM_PFC_ICR1		REG_TCCR1_UNION.value | 0x1001
+#define TIMER1_MODE_PWM_PFC_OCRA1		REG_TCCR1_UNION.value | 0x1002
+#define TIMER1_MODE_PWM_PC_ICR1			REG_TCCR1_UNION.value | 0x1003
+#define TIMER1_MODE_PWM_PC_OCRA1		REG_TCCR1_UNION.value | 0x1800
+#define TIMER1_MODE_CTC_ICR1			REG_TCCR1_UNION.value | 0x0000
+#define TIMER1_MODE_FAST_PWM_ICR1		REG_TCCR1_UNION.value | 0x1802
+#define TIMER1_MODE_FAST_PWM_OCR1A		REG_TCCR1_UNION.value | 0x1803
+
+//TIMER1 CONFIGURATIONS
+#define TIMER1_CLOCK_SELECTION			REG_TCCR1_UNION.bits.clock_select
+#define TIMER1_NO_CLOCK					0
+#define TIMER1_NO_PRESCALE				1
+#define TIMER1_PRESCALE_8				2
+#define TIMER1_PRESCALE_64				3
+#define TIMER1_PRESCALE_256				4
+#define TIMER1_PRESCALE_1024			5
+#define TIMER1_T1_FALLING_EDGE			6
+#define TIMER1_T1_RISING_EDGE			7
+
+//REGISTER ADRESS OF TIMER COUNTER INTERRUPT MASK REGISTER1
+#define REG_ADDR_TIMSK1					0x6F
+
+//STRUCT OF TIMER COUNTER INTERRUPT MASK REGISTER1
+typedef struct{
+	uint8_t toie : 1;
+	uint8_t ociea : 1;
+	uint8_t ocieb :1;
+	uint8_t icie : 1;
+	uint8_t reserved : 4 ;	
+}_TIMSK1_T,*_TIMSK1_T_PTR;
+
+//UNION OF TIMER COUNTER INTERRUPT MASK REGISTER1
+typedef union{
+	_TIMSK1_T bits;
+	uint8_t value;
+}TIMSK1_T,*TIMSK1_T_PTR;
+
+//TIMER1 INTERRUPT CONFIGURATIONS
+#define REGISTER_TIMSK1_UNION			(*(volatile TIMSK1_T_PTR)REG_ADDR_TIMSK1)
+#define INTERRUPT_ENABLE				1
+#define INTERRUPT_DISABLE				0
+#define TIMER1_INTERRUPT_OUT_COMP_A		REGISTER_TIMSK1_UNION.bits.ociea
+#define TIMER1_INTERRUPT_OUT_COMP_B		REGISTER_TIMSK1_UNION.bits.ocieb
+#define TIMER1_INTERRUPT_INPUT_CAPTURE	REGISTER_TIMSK1_UNION.bits.icie
+#define TIMER1_INTERRUPT_OVERFLOW		REGISTER_TIMSK1_UNION.bits.toie
+
+
+#endif

@@ -1,0 +1,10 @@
+C:\Users\HP\source\repos\AVRUart\AVRUart\bin\Debug\AVRUart.exe.config
+C:\Users\HP\source\repos\AVRUart\AVRUart\bin\Debug\AVRUart.exe
+C:\Users\HP\source\repos\AVRUart\AVRUart\bin\Debug\AVRUart.pdb
+C:\Users\HP\source\repos\AVRUart\AVRUart\obj\Debug\AVRUart.csprojAssemblyReference.cache
+C:\Users\HP\source\repos\AVRUart\AVRUart\obj\Debug\AVRUart.Form1.resources
+C:\Users\HP\source\repos\AVRUart\AVRUart\obj\Debug\AVRUart.Properties.Resources.resources
+C:\Users\HP\source\repos\AVRUart\AVRUart\obj\Debug\AVRUart.csproj.GenerateResource.cache
+C:\Users\HP\source\repos\AVRUart\AVRUart\obj\Debug\AVRUart.csproj.CoreCompileInputs.cache
+C:\Users\HP\source\repos\AVRUart\AVRUart\obj\Debug\AVRUart.exe
+C:\Users\HP\source\repos\AVRUart\AVRUart\obj\Debug\AVRUart.pdb
